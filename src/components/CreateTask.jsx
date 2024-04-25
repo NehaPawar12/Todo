@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, message, Input, Modal } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import React, { useContext, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
@@ -13,6 +13,9 @@ const CreateTask = () => {
   const handleCreateTask = (e) => {
     setData([...data, { Title: taskInputTitle, Desc: taskInputText }]);
     setIsOpen(false);
+    setTaskInputText("");
+    setTaskInputTitle("");
+    message.success("New task added");
   };
   const handleTaskInputChange = (e) => {
     setTaskInputText(e.target.value);
@@ -22,9 +25,10 @@ const CreateTask = () => {
   };
   return (
     <div className="flex justify-center my-2 ">
-      <Button onClick={() => setIsOpen(true)} type="primary">
+      <Button onClick={() => setIsOpen(true)} type="primary" size="large">
         <span>
-          <PlusCircleOutlined className="text-white mx-1" /> Create Task
+          <PlusCircleOutlined className="text-green-600 text-sm p-1 bg-white rounded-xl border-solid  border-1 mx-1" />
+          Create Task
         </span>
       </Button>
       <Modal
@@ -38,6 +42,7 @@ const CreateTask = () => {
           className="mb-2"
           onChange={handleTaskInputTitleChange}
           placeholder="Task Title"
+          value={taskInputTitle}
         />
 
         <TextArea
